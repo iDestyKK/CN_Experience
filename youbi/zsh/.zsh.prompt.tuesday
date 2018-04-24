@@ -1,0 +1,21 @@
+# Time Prompt
+TIME_FG='15'
+TIME_BG='196'
+
+# Return Prompt
+PASS_FG='16'
+PASS_BG='82'
+FAIL_FG='15'
+FAIL_BG='197'
+
+# User Prompt
+HOST_FG='15'
+HOST_BG='160'
+
+# Git Prompt
+GIT_FG='15'
+GIT_BG='241'
+
+# Path Prompt
+PATH_FG='160'
+PATH_BG='255'
