@@ -46,6 +46,55 @@ TMUX_BGC='colour238'
 SPLIT_CHAR_LEFT=''
 SPLIT_CHAR_RIGHT=''
 
+# SINOBUZ
+DOTW_P=$(date +%u)
+let "DOTW_P--"
+
+# Characters for the days of the week
+ELEM=(
+	'月'
+	'火'
+	'水'
+	'木'
+	'金'
+	'土'
+	'日'
+)
+
+# Background colour for the elements
+ELEM_BG=(
+	'colour207'
+	'colour196'
+	'colour75'
+	'colour28'
+	'colour227'
+	'colour204'
+	'colour105'
+)
+
+# Background for the time elements near the day
+ELEM_DBG=(
+	'colour97'
+	'colour88'
+	'colour25'
+	'colour22'
+	'colour100'
+	'colour132'
+	'colour98'
+)
+
+# Foreground colour for the elements
+ELEM_FG=(
+	'colour15'
+	'colour15'
+	'colour15'
+	'colour15'
+	'colour236'
+	'colour15'
+	'colour15'
+)
+
+
 # The prompt
 PROMPT=''
 
@@ -143,20 +192,33 @@ function battery() {
 	append_current_colour
 }
 
-function time_and_date() {
+function cur_date() {
 	# Prints out the date and time... in their own tabs
-	set_colour 'colour255' 'colour234'
+	#set_colour 'colour255' 'colour234'
+	set_colour 'colour255' ${ELEM_DBG[$DOTW_P]}
 
 	append_right_arrow
-	append_prompt " #[bold]$(date +'%Y/%m/%d') "
-
-	set_colour 'colour238' 'colour234'
+	append_prompt " #[bold]$(date +'%Y/%m/%d') #[default]"
 	append_current_colour
-	append_prompt ""
+}
 
-	set_colour 'colour255' 'colour234'
+function dotw() {
+	# Prints a kanji of the day of the week.
+	set_colour ${ELEM_FG[$DOTW_P]} ${ELEM_BG[$DOTW_P]}
+
+	append_right_arrow
+	append_prompt " #[bold]${ELEM[$DOTW_P]} #[default]"
 	append_current_colour
-	append_prompt " $(date +'%H:%M') #[default]"
+}
+
+function cur_time() {
+	# Prints out the date and time... in their own tabs
+	#set_colour 'colour255' 'colour234'
+	set_colour 'colour255' ${ELEM_DBG[$DOTW_P]}
+
+	append_right_arrow
+	append_prompt " #[bold]$(date +'%H:%M') #[default]"
+	append_current_colour
 }
 
 # ----------------------------------------------------------------------------\
@@ -177,7 +239,9 @@ if [ $1 == "right" ]; then
 	# The Modules
 	ip_address
 	battery
-	time_and_date
+	cur_date
+	dotw
+	cur_time
 fi
 
 # Print it out
