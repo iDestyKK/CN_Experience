@@ -33,6 +33,9 @@ fi
 # ----------------------------------------------------------------------------/
 
 # VARIABLES
+# For arrow management
+FIRST=0
+
 # Previous & Current Colours
 PREV_FG='colour0'
 PREV_BG='colour0'
@@ -40,7 +43,7 @@ CUR_FG=$PREV_FG
 CUR_BG=$PREV_BG
 
 # Background of the TMUX statusbar (Default BG to resort to)
-TMUX_BGC='colour238'
+TMUX_BGC='colour233'
 
 # Shell Exclusive Characters
 SPLIT_CHAR_LEFT=''
@@ -93,7 +96,6 @@ ELEM_FG=(
 	'colour15'
 	'colour15'
 )
-
 
 # The prompt
 PROMPT=''
@@ -150,8 +152,12 @@ function append_left_arrow() {
 	#              being the current colour's background, and the foreground
 	#              being the previous background. Do this after doing your stuff
 	#              in the module.
-
-	append_prompt "#[fg=${PREV_BG},bg=${CUR_BG}]${SPLIT_CHAR_LEFT}"
+	
+	if [ $FIRST -ne 0 ]; then
+		append_prompt "#[fg=${PREV_BG},bg=${CUR_BG}]${SPLIT_CHAR_LEFT}"
+	else
+		FIRST=1
+	fi
 	append_current_colour
 }
 
@@ -221,6 +227,16 @@ function cur_time() {
 	append_current_colour
 }
 
+function p_hostname() {
+	# Prints out the name of the machine.
+	#set_colour 'colour15' 'colour234'
+	set_colour ${ELEM_FG[$DOTW_P]} ${ELEM_BG[$DOTW_P]}
+	
+	append_left_arrow
+	append_prompt "  #[bold]$(hostname)  #[default]"
+	append_current_colour
+}
+
 # ----------------------------------------------------------------------------\
 # 4. PRINT THE PROMPT                                                    {{{1 |
 #                                                                             |
@@ -231,7 +247,20 @@ function cur_time() {
 init_prompt
 
 # Now... we get specific.
-if [ $1 == "right" ]; then
+if [ $1 == "left" ]; then
+	# Left side of the Status Bar
+	# Initial Condition
+	set_colour 'colour255' $TMUX_BGC
+	append_current_colour
+
+	# The Modules
+	p_hostname
+
+	# There is an arrow at the end of the left prompt
+	set_bg $TMUX_BGC
+	append_left_arrow
+elif [ $1 == "right" ]; then
+	# Right side of the Status Bar
 	# Initial Condition
 	set_colour 'colour255' $TMUX_BGC
 	append_current_colour
@@ -242,6 +271,8 @@ if [ $1 == "right" ]; then
 	cur_date
 	dotw
 	cur_time
+elif [ $1 == "bg" ]; then
+	PROMPT=$TMUX_BGC
 fi
 
 # Print it out
