@@ -186,7 +186,7 @@ function ip_address() {
 	set_colour 'colour255' 'colour236'
 
 	append_right_arrow
-	append_prompt " IP: $(./scr/curip.sh) "
+	append_prompt "  $(./scr/curip.sh) "
 }
 
 function battery() {
@@ -194,7 +194,21 @@ function battery() {
 	set_colour 'colour255' 'colour198'
 
 	append_right_arrow
-	append_prompt " #[bold]$(./scr/battery.sh)% #[default]"
+
+	SCR_O=$(./scr/battery.sh)
+	if [ $SCR_O -ge 80 ]; then
+		append_prompt "   "
+	elif [$SCR_O -ge 60]; then
+		append_prompt "   ";
+	elif [$SCR_O -ge 60]; then
+		append_prompt "   ";
+	elif [$SCR_O -ge 60]; then
+		append_prompt "   ";
+	else
+		append_prompt "   ";
+	fi
+
+	append_prompt " #[bold]${SCR_O}% #[default]"
 	append_current_colour
 }
 
@@ -204,7 +218,7 @@ function cur_date() {
 	set_colour 'colour255' ${ELEM_DBG[$DOTW_P]}
 
 	append_right_arrow
-	append_prompt " #[bold]$(date +'%Y/%m/%d') #[default]"
+	append_prompt "  #[bold]$(date +'%Y/%m/%d') #[default]"
 	append_current_colour
 }
 
@@ -237,6 +251,16 @@ function p_hostname() {
 	append_current_colour
 }
 
+function p_sessionname() {
+	# Prints out the name of the session.
+	#set_colour 'colour15' 'colour234'
+	set_colour ${ELEM_FG[$DOTW_P]} ${ELEM_DBG[$DOTW_P]}
+	
+	append_left_arrow
+	append_prompt "  #[bold]$(tmux display-message -p '#S')  #[default]"
+	append_current_colour
+}
+
 # ----------------------------------------------------------------------------\
 # 4. PRINT THE PROMPT                                                    {{{1 |
 #                                                                             |
@@ -255,10 +279,12 @@ if [ $1 == "left" ]; then
 
 	# The Modules
 	p_hostname
+	p_sessionname
 
 	# There is an arrow at the end of the left prompt
 	set_bg $TMUX_BGC
 	append_left_arrow
+	append_prompt " "
 elif [ $1 == "right" ]; then
 	# Right side of the Status Bar
 	# Initial Condition

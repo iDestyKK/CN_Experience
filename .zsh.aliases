@@ -12,6 +12,10 @@
 alias sclear='echo -e "\033c\c"'
 alias vi='vim'
 
+# Tmux stuff
+alias tmux-join='tmux attach -t'
+alias tmux-start='tmux new-session -s'
+
 # Shortcuts
 alias ls='ls --color'
 alias l='ls -la'
