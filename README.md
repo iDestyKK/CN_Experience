@@ -1,4 +1,4 @@
-# Dot/Config Files
+# CN\_Experience (My dot/config files)
 
 ## 1. Synopsis
 These are files that I use to configure how my applications work on Linux.
