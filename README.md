@@ -100,14 +100,3 @@ can be compiled into an actual executable.
 Why do I say this? Because there exists a VIM syntax file for it, and it's
 in `.vim/syntax/cn_script.vim`! It isn't perfect (yet), but I'll be improving
 it as time passes on.
-
-## 6. VIM Plugins
-There are some plugins I use for VIM that are included here (probably with the
-original GitHub repos also linked). I put these in the repo because, otherwise,
-a lot of shit will break when I try to pull from this repo.
-
-**The List:**
-* NERDTree (Which I renamed to "PRINCESS")
-* Syntastic
-* Vim Airline (and themes)
-* Vim Fugitive
