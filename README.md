@@ -24,6 +24,55 @@ my vim theme, zsh theme, tmux theme, and more here.
 * vim
 * zsh
 
+### 3.1. tmux
+My tmux config changes up how it works completely. For starters, the prefix key
+is remapped to C-a (Ctrl+A). Other corrections allow it to share the same
+control scheme that GNU Screen has. It is shown in the .tmux.conf file as:
+```
+# Command                          Key                   Action
+# -------------------------------------------------------------------------
+bind | split-window -h           # |                   = Split horizontally
+bind - split-window -v           # -                   = Split vertically
+
+bind -n M-S-Left previous-window # Alt + Shift + Left  = Previous Window
+bind -n M-S-Right next-window    # Alt + Shift + Right = Next Window
+
+bind r source-file ~/.tmux.conf  # r                   = Reload config file
+```
+
+You get my SINOBUZ theme for tmux as well. It changes colours based on the day
+of the week. It's covered more in depth in the **Themes** section.
+
+### 3.2. vim
+The following repos added:
+* Syntastic
+* Nerdtree (Renamed to "PRINCESS")
+* Vim-Airline
+* Vim-Fugitive
+
+The following hotkeys are added:
+* F7 - Previous Tab/Buffer
+* F8 - Next Tab/Buffer
+* C-n (Ctrl+N) - NERDTreeToggle
+* C-b (Ctrl+B) - TagbarToggle
+
+Other features include:
+* Tab/Buffer support! Press F7/F8 to navigate across files.
+* 4 space tabs.
+* Improved bottom-bar with colouring for whatever mode you are in.
+* See errors in your code without having to compile it via Syntastic!
+
+You can open multiple files in VIM at once via:
+```
+UNIX> vim file1 file2 ...
+```
+And then switch between them with F7/F8.
+
+### 3.3. zsh
+You get my SINOBUZ ZSH theme, a theme that changes based on the day of the
+week. It's covered in the **Themes** section. You also get a few of my aliases.
+Check them out!
+
 ## 4. Themes
 ### 4.1. SINOBUZ
 One of my notable themes is SINOBUZ (based on Beatmania IIDX 24: SINOBUZ). The
