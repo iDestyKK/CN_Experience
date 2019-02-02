@@ -7,7 +7,7 @@ a single repo that stores everything, and I could simply pull from it in order
 to get the latest version of my stuff. Easy, right?
 
 ## 2. Installation Instructions
-Just run `./install.sh`.
+Just run `./install.sh`. Easy.
 
 This script won't delete any files. It will create a `.cn_experience` directory
 in your home directory to store everything. It will also inject paths into your
