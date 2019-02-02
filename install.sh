@@ -110,10 +110,20 @@ fi
 # Check if .vim exists
 log_print "  DIR: ~/.vim..."
 if [ ! -e "${HOME_DIR}/.vim" ]; then
-	log_status 1
-	log_print \
-		"    There must be a .vim directory. Do you have VIM installed?" "\n"
-	exit 1
+	printf "[ ${YELLOW}MAKE${NORMAL} ]\n"
+	log_print "    Creating ~/.vim..."
+
+	MSG=$(mkdir "${HOME_DIR}/.vim" 2>&1)
+	RES=$?
+
+	if [ $RES -eq 0 ]; then
+		log_status 0
+	else
+		log_status 1
+		log_print "    Failed to create \"${HOME_DIR}/.vim\"." "\n"
+		log_print "    ${MSG}" "\n"
+		exit 1
+	fi
 else
 	log_status 0
 fi
