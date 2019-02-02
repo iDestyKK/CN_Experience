@@ -1,11 +1,13 @@
-############################################################################
-#                                                                          #
-#        ZSH Aliases Defintions File                                       #
-#                                                                          #
-#        Contains useful Aliases that I use whilst on command line.        #
-#        May be abusive :P                                                 #
-#                                                                          #
-############################################################################
+#
+# CN_Experience - ZSH Aliases
+#
+# Description:
+#     Contains some useful aliases that I use whilst on command line. May be
+#     abusive :P
+#
+# Author:
+#     Clara Nguyen (@iDestyKK)
+#
 
 # Annoyances
 #alias sclear='clear && echo -en "\e[3J"'
