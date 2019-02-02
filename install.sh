@@ -89,7 +89,20 @@ fi
 # Check if .zshrc exists
 log_print "  DIR: ~/.zshrc... "
 if [ ! -e "${HOME_DIR}/.zshrc" ]; then
-	log_status 1
+	printf "[ ${YELLOW}MAKE${NORMAL} ]\n"
+	log_print "    Creating ~/.cn_experience..."
+
+	MSG=$(touch "${HOME_DIR}/.zshrc" 2>&1)
+	RES=$?
+
+	if [ $RES -eq 0 ]; then
+		log_status 0
+	else
+		log_status 1
+		log_print "    Failed to create \"${HOME_DIR}/.zshrc\"." "\n"
+		log_print "    ${MSG}" "\n"
+		exit 1
+	fi
 else
 	log_status 0
 fi
@@ -139,6 +152,11 @@ log_status 0
 # VIM Configs
 log_print "    vim..."
 cp -r "${SCRIPTPATH}/configs/vim" "${TARGET}/configs"
+log_status 0
+
+# TMUX Configs
+log_print "    tmux..."
+cp -r "${SCRIPTPATH}/configs/tmux" "${TARGET}/configs"
 log_status 0
 
 # Youbi
