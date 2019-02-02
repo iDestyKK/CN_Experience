@@ -1,0 +1,13 @@
+#
+# CN_Experience - ZSH Include
+#
+# Description:
+#     Starts a chain of includes for zsh to add in CN_Experience features.
+#
+# Author:
+#     Clara Nguyen (@iDestyKK)
+#
+
+# Include prompt and aliases
+source "${0:a:h}/.zsh.prompt"
+source "${0:a:h}/.zsh.aliases"

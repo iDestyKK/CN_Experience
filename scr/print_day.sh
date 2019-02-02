@@ -1,8 +1,12 @@
+#!/bin/bash
+
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
 DAY=$(date +%u)
 if [[ $# -eq 1 ]]; then
 	DAY=$1
 fi
-DIR="${HOME}/youbi"
+DIR="${SCRIPTPATH}/../youbi"
 FILEARR=(
 	''
 	'monday.txt'
