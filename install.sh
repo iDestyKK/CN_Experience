@@ -152,7 +152,26 @@ for F in "${SCRIPTPATH}/default/"*; do
 	cp -r "$F" "${TARGET}"
 done
 
-mkdir "${TARGET}/configs" 2> /dev/null > /dev/null
+# Configuration directory
+if [ ! -e "${TARGET}/configs" ]; then
+	# Create new directory
+	mkdir "${TARGET}/configs" 2> /dev/null > /dev/null
+else
+	# Copy over older configs to a new directory
+	log_print "    Moving old configs to \"configs.old\""
+
+	MSG=$(mv "${TARGET}/configs" "${TARGET}/configs.old" 2>&1)
+	RES=$?
+
+	if [ $RES -eq 0 ]; then
+		log_status 0
+	else
+		log_status 1
+		log_print "    Failed to move configs over." "\n"
+		log_print "    ${MSG}" "\n"
+		exit 1
+	fi
+fi
 
 # ZSH Configs
 log_print "    zsh..."
