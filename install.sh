@@ -153,10 +153,7 @@ for F in "${SCRIPTPATH}/default/"*; do
 done
 
 # Configuration directory
-if [ ! -e "${TARGET}/configs" ]; then
-	# Create new directory
-	mkdir "${TARGET}/configs" 2> /dev/null > /dev/null
-else
+if [ -e "${TARGET}/configs" ]; then
 	# Copy over older configs to a new directory
 	log_print "    Moving old configs to \"configs.old\""
 
@@ -172,6 +169,9 @@ else
 		exit 1
 	fi
 fi
+
+# Create new directory
+mkdir "${TARGET}/configs" 2> /dev/null > /dev/null
 
 # ZSH Configs
 log_print "    zsh..."
