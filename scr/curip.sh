@@ -1,1 +1,3 @@
-ip addr show wlp3s0 | grep 'inet ' | awk '{print wlp3s0 $2}'
+#!/bin/bash
+
+ip route get 1 | head -1 | awk '{print $7}'
