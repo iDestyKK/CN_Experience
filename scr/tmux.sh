@@ -33,6 +33,9 @@ fi
 # ----------------------------------------------------------------------------/
 
 # VARIABLES
+# Path of where this script is
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
 # For arrow management
 FIRST=0
 
@@ -186,7 +189,7 @@ function ip_address() {
 	set_colour 'colour255' 'colour236'
 
 	append_right_arrow
-	append_prompt "  $(./scr/curip.sh) "
+	append_prompt "  $(${SCRIPTPATH}/curip.sh) "
 }
 
 function battery() {
@@ -195,7 +198,7 @@ function battery() {
 
 	append_right_arrow
 
-	SCR_O=$(./scr/battery.sh)
+	SCR_O=$(${SCRIPTPATH}/battery.sh)
 	if [ $SCR_O -ge 80 ]; then
 		append_prompt "   "
 	elif [$SCR_O -ge 60]; then
@@ -219,6 +222,16 @@ function cur_date() {
 
 	append_right_arrow
 	append_prompt "  #[bold]$(date +'%Y/%m/%d') #[default]"
+	append_current_colour
+}
+
+function ram_usage() {
+	# Prints out the current ram usage. This is useful for when you have nested
+	# TMUX sessions and need easy access to RAM usage.
+	set_colour 'colour255' 'colour233'
+
+	append_right_arrow
+	append_prompt "  $(${SCRIPTPATH}/ram_usage.sh) "
 	append_current_colour
 }
 
@@ -287,13 +300,25 @@ if [ $1 == "left" ]; then
 	append_prompt " "
 elif [ $1 == "right" ]; then
 	# Right side of the Status Bar
+
+	# Check some conditions
+	bat_exist="$(upower -e | grep BAT)"
+	int_exist="$(${SCRIPTPATH}/curip.sh)"
+
 	# Initial Condition
 	set_colour 'colour255' $TMUX_BGC
 	append_current_colour
 
 	# The Modules
-	ip_address
-	battery
+	if [ $int_exist != "" ]; then
+		ip_address
+	fi
+
+	if [ $bat_exist != "" ]; then
+		battery
+	fi
+
+	ram_usage
 	cur_date
 	dotw
 	cur_time
