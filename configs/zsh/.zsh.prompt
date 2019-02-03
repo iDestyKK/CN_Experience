@@ -159,9 +159,9 @@ time_prompt() {
 	append_current_colour
 
 	if [[ $SINOBUZ -eq 1 ]]; then
-		append_prompt '%B %D{%K:%M:%S} %b'
+		append_prompt '%B %D{%H:%M:%S} %b'
 	else
-		append_prompt '%B %D{%K:%M:%S} %b'
+		append_prompt '%B %D{%H:%M:%S} %b'
 	fi
 }
 
